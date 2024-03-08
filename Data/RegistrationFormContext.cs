@@ -9,11 +9,11 @@ namespace RegistrationForm.Data
 {
     public class RegistrationFormContext : DbContext
     {
-        public RegistrationFormContext (DbContextOptions<RegistrationFormContext> options)
+        public RegistrationFormContext(DbContextOptions<RegistrationFormContext> options)
             : base(options)
         {
         }
 
-        public DbSet<RegistrationForm.Models.UserModel> UserModel { get; set; } = default!;
+        public DbSet<RegisterUser> RegisterUser { get; set; } 
     }
 }

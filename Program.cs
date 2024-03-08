@@ -5,8 +5,7 @@ using RegistrationForm.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<RegistrationFormContext>(options =>
-
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RegistrationFormContext") ?? throw new InvalidOperationException("Connection string 'RegistrationFormContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RegistrationFormContext")));
 
 
 
@@ -33,6 +32,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Register}/{action=Register}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

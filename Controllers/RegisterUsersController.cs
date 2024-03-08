@@ -10,87 +10,87 @@ using RegistrationForm.Models;
 
 namespace RegistrationForm.Controllers
 {
-    public class UserModelsController : Controller
+    public class RegisterUsersController : Controller
     {
         private readonly RegistrationFormContext _context;
 
-        public UserModelsController(RegistrationFormContext context)
+        public RegisterUsersController(RegistrationFormContext context)
         {
             _context = context;
         }
 
-        // GET: UserModels
+        // GET: RegisterUser
         public async Task<IActionResult> Index()
         {
-              return _context.UserModel != null ? 
-                          View(await _context.UserModel.ToListAsync()) :
-                          Problem("Entity set 'RegistrationFormContext.UserModel'  is null.");
+              return _context.RegisterUser != null ? 
+                          View(await _context.RegisterUser.ToListAsync()) :
+                          Problem("Entity set 'RegistrationFormContext.RegisterUser'  is null.");
         }
 
-        // GET: UserModels/Details/5
+        // GET: RegisterUser/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.UserModel == null)
+            if (id == null || _context.RegisterUser == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel
+            var registerUser = await _context.RegisterUser
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userModel == null)
+            if (registerUser == null)
             {
                 return NotFound();
             }
 
-            return View(userModel);
+            return View(registerUser);
         }
 
-        // GET: UserModels/Create
+        // GET: RegisterUser/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: UserModels/Create
+        // POST: RegisterUser/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] UserModel userModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender,Email,Course")] RegisterUser registerUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userModel);
+                _context.Add(registerUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(userModel);
+            return View(registerUser);
         }
 
-        // GET: UserModels/Edit/5
+        // GET: RegisterUser/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.UserModel == null)
+            if (id == null || _context.RegisterUser == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel.FindAsync(id);
-            if (userModel == null)
+            var registerUser = await _context.RegisterUser.FindAsync(id);
+            if (registerUser == null)
             {
                 return NotFound();
             }
-            return View(userModel);
+            return View(registerUser);
         }
 
-        // POST: UserModels/Edit/5
+        // POST: RegisterUser/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email")] UserModel userModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Gender,Email,Course")] RegisterUser registerUser)
         {
-            if (id != userModel.Id)
+            if (id != registerUser.Id)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace RegistrationForm.Controllers
             {
                 try
                 {
-                    _context.Update(userModel);
+                    _context.Update(registerUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserModelExists(userModel.Id))
+                    if (!RegisterUserExists(registerUser.Id))
                     {
                         return NotFound();
                     }
@@ -115,49 +115,49 @@ namespace RegistrationForm.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userModel);
+            return View(registerUser);
         }
 
-        // GET: UserModels/Delete/5
+        // GET: RegisterUser/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.UserModel == null)
+            if (id == null || _context.RegisterUser == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel
+            var registerUser = await _context.RegisterUser
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userModel == null)
+            if (registerUser == null)
             {
                 return NotFound();
             }
 
-            return View(userModel);
+            return View(registerUser);
         }
 
-        // POST: UserModels/Delete/5
+        // POST: RegisterUser/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.UserModel == null)
+            if (_context.RegisterUser == null)
             {
-                return Problem("Entity set 'RegistrationFormContext.UserModel'  is null.");
+                return Problem("Entity set 'RegistrationFormContext.RegisterUser'  is null.");
             }
-            var userModel = await _context.UserModel.FindAsync(id);
-            if (userModel != null)
+            var registerUser = await _context.RegisterUser.FindAsync(id);
+            if (registerUser != null)
             {
-                _context.UserModel.Remove(userModel);
+                _context.RegisterUser.Remove(registerUser);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserModelExists(int id)
+        private bool RegisterUserExists(int id)
         {
-          return (_context.UserModel?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.RegisterUser?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
